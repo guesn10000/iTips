@@ -337,6 +337,12 @@
 {
     [super viewDidLoad];
     
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        // iOS 7
+        [self prefersStatusBarHidden];
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    }
+    
     NSString *body = @"请将手机横置，以便查看完整页面";
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iTips提提你" message:body delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
     [alert show];
@@ -647,6 +653,10 @@
             }
         }
     }
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;//隐藏为YES，显示为NO
 }
 
 - (void)didReceiveMemoryWarning
